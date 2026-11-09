@@ -1,0 +1,35 @@
+Python      : 3.13.18
+Executable  : /usr/local/bin/python3
+Platform    : Linux-6.18.44-fc-v310-x86_64-with-glibc2.39
+Machine     : x86_64 | CPU: x86_64
+
+package               installed                   pinned                      status
+--------------------------------------------------------------------------------------
+numpy                 2.5.3                       1.26.4                      MISMATCH
+pandas                3.0.5                       2.2.2                       MISMATCH
+scikit-learn          1.9.1                       1.5.0                       MISMATCH
+scipy                 1.18.1                      1.13.1                      MISMATCH
+matplotlib            3.11.2                      3.9.0                       MISMATCH
+seaborn               0.13.2                      0.13.2                      OK
+torch                 NOT INSTALLED               2.3.1                       MISMATCH
+torchvision           NOT INSTALLED               0.18.1                      MISMATCH
+torchinfo             NOT INSTALLED               1.8.0                       MISMATCH
+thop                  NOT INSTALLED               0.1.1.post2209072238        MISMATCH
+onnx                  NOT INSTALLED               1.16.1                      MISMATCH
+onnxruntime           1.29.0                      1.18.0                      MISMATCH
+mlflow                NOT INSTALLED               2.14.1                      MISMATCH
+memory-profiler       NOT INSTALLED               0.61.0                      MISMATCH
+psutil                7.2.2                       5.9.8                       MISMATCH
+codecarbon            NOT INSTALLED               2.4.2                       MISMATCH
+fastapi               NOT INSTALLED               0.111.0                     MISMATCH
+uvicorn               0.54.0                      0.30.1                      MISMATCH
+pytest                9.1.1                       8.2.2                       MISMATCH
+httpx                 NOT INSTALLED               0.27.0                      MISMATCH
+locust                NOT INSTALLED               2.28.0                      MISMATCH
+requests              2.34.2                      2.32.3                      MISMATCH
+pyarrow               NOT INSTALLED               16.1.0                      MISMATCH
+joblib                1.6.0                       1.4.2                       MISMATCH
+tqdm                  NOT INSTALLED               4.66.4                      MISMATCH
+--------------------------------------------------------------------------------------
+24 package(s) differ from requirements.txt
+WARNING: required Python is 3.11.8

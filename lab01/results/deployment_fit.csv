@@ -1,0 +1,17 @@
+model,memory_view,platform,memory_kb,latency_ms,size_kb,fits,violated
+LogisticRegression,process,Cloud,162897.9,0.0748,1.08,YES,-
+LogisticRegression,process,Edge,162897.9,0.0748,1.08,YES,-
+LogisticRegression,process,Mobile,162897.9,0.0748,1.08,YES,-
+LogisticRegression,process,TinyML,162897.9,0.0748,1.08,NO,memory
+LogisticRegression,model,Cloud,2.0,0.0748,1.08,YES,-
+LogisticRegression,model,Edge,2.0,0.0748,1.08,YES,-
+LogisticRegression,model,Mobile,2.0,0.0748,1.08,YES,-
+LogisticRegression,model,TinyML,2.0,0.0748,1.08,YES,-
+RandomForest,process,Cloud,163072.0,3.3048,284.1,YES,-
+RandomForest,process,Edge,163072.0,3.3048,284.1,YES,-
+RandomForest,process,Mobile,163072.0,3.3048,284.1,YES,-
+RandomForest,process,TinyML,163072.0,3.3048,284.1,NO,"memory,size"
+RandomForest,model,Cloud,639.8,3.3048,284.1,YES,-
+RandomForest,model,Edge,639.8,3.3048,284.1,YES,-
+RandomForest,model,Mobile,639.8,3.3048,284.1,YES,-
+RandomForest,model,TinyML,639.8,3.3048,284.1,NO,"memory,size"
