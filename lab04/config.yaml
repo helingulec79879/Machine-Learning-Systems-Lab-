@@ -1,0 +1,48 @@
+# Lab 4 - Data pipeline configuration (UCI Adult)
+# Every number that affects the output lives here, so the run is reproducible.
+
+data:
+  source: openml            # "openml" (default) or "csv" (offline fallback)
+  openml_name: adult
+  openml_version: 2
+  csv_path: data/raw/adult_raw.csv   # only used when source == csv
+  cache_dir: data/openml_cache
+  raw_snapshot: data/raw/adult_raw.csv
+  expected_rows: 48842
+  expected_columns: 15
+  target_raw_name: class    # OpenML calls the label "class"; we rename it to "income"
+  target: income
+  positive_label: ">50K"
+
+split:
+  test_size: 0.30
+  stratify: true
+  random_state: 42
+
+cleaning:
+  missing_token: "?"
+  numeric_imputer: median
+  categorical_imputer: most_frequent
+  clip_lower_percentile: 1
+  clip_upper_percentile: 99
+  drop_train_duplicates: true   # test set is never touched
+
+features:
+  derived:
+    - capital_net      # capital-gain - capital-loss
+    - hours_per_age    # hours-per-week / (age - 16)
+
+model:
+  type: LogisticRegression
+  max_iter: 2000
+  C: 1.0
+  random_state: 42
+
+label_quality:
+  sample_size: 50
+  random_state: 42
+
+output:
+  results_dir: results
+  processed_dir: data/processed
+  preprocessor_path: results/preprocessor.joblib
