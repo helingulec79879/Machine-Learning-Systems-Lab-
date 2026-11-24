@@ -1,6 +1,7 @@
 # Lab 2 — A Neural Network from Scratch (Reddi, Ch. 3)
 
 All code is in `nn_scratch.py` (NumPy only; scikit-learn is used just to load and split the data).
+Handwritten parts (Sections 2 and 5) are in `handwritten/`.
 Run `cd lab02 && python src/nn_scratch.py` → regenerates everything in `lab02/results/`:
 `loss_curves.png`, `results.json` (all numbers + per-epoch history), `run_log.txt` (full console log with per-epoch logging).
 
@@ -14,6 +15,10 @@ Run `cd lab02 && python src/nn_scratch.py` → regenerates everything in `lab02/
 - Stratification check — class counts train `[124,127,124,128,127,127,127,125,122,126]`, test `[54,55,53,55,54,55,54,54,52,54]` (≈ 10 % each in both).
 
 ## 2. Network design [15]
+
+Handwritten version (on paper): [`handwritten/part2_network_design.jpg`](handwritten/part2_network_design.jpg)
+
+<img src="handwritten/part2_network_design.jpg" width="500" alt="Handwritten network design">
 
 ```
 x (B,64) ─► z1 = xW1+b1 (B,W) ─► a1 = ReLU(z1)
@@ -41,6 +46,10 @@ L = −(1/N) Σᵢ Σₖ Yᵢₖ log ŷᵢₖ.
 Untrained network on the full training set: **L = 2.3026** for both W = 16 and W = 64 (ln 10 = 2.3026) — with tiny weights all logits ≈ 0, so softmax is uniform (1/10 per class).
 
 ## 5. Gradients and gradient check [30]
+
+Handwritten derivation (on paper): [`handwritten/part5_gradient_derivation.jpg`](handwritten/part5_gradient_derivation.jpg)
+
+<img src="handwritten/part5_gradient_derivation.jpg" width="500" alt="Handwritten gradient derivation">
 
 **Derivation (chain rule).** For softmax + cross-entropy the combined derivative is
 ∂L/∂z3 = (ŷ − Y)/N. Then, going backwards:
