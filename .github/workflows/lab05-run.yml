@@ -1,0 +1,37 @@
+name: lab05-run
+on:
+  push:
+    branches: [lab05-run]
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install numpy scikit-learn matplotlib jupyter nbconvert ipykernel
+      - name: Execute notebook
+        working-directory: lab05
+        run: |
+          set -o pipefail
+          jupyter nbconvert --execute --to notebook --inplace --ExecutePreprocessor.timeout=1800 lab5.ipynb 2>&1 | tee results/nbconvert_log.txt
+      - name: Versions
+        if: always()
+        working-directory: lab05
+        run: |
+          python -c "import torch,sys,sklearn,numpy;print('torch',torch.__version__,'| python',sys.version.split()[0],'| sklearn',sklearn.__version__,'| numpy',numpy.__version__)" > results/versions.txt
+          lscpu | grep -E 'Model name|^CPU\(s\)' >> results/versions.txt
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add -A lab05
+          git commit -m "ci results" || true
+          git push
