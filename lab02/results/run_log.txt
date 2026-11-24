@@ -1,0 +1,378 @@
+=== 1. Dataset ===
+train X (1257, 64), Y (1257, 10) | test X (540, 64), Y (540, 10)
+X range [0.00, 1.00]
+train class counts: [124, 127, 124, 128, 127, 127, 127, 125, 122, 126]
+test  class counts: [54, 55, 53, 55, 54, 55, 54, 54, 52, 54]
+
+=== 2. Design ===
+W=16: {'W1': [64, 16], 'b1': [16], 'W2': [16, 16], 'b2': [16], 'W3': [16, 10], 'b3': [10]}  total params = 1482
+W=64: {'W1': [64, 64], 'b1': [64], 'W2': [64, 64], 'b2': [64], 'W3': [64, 10], 'b3': [10]}  total params = 8970
+
+=== 3./4. Forward pass and initial loss ===
+W=16: output (32, 10), max |row_sum-1| = 3.33e-16, initial loss = 2.3026 (ln 10 = 2.3026)
+W=64: output (32, 10), max |row_sum-1| = 3.33e-16, initial loss = 2.3026 (ln 10 = 2.3026)
+
+=== 5. Gradient check (10 random weights, eps=1e-5) ===
+W=16 [numerical_in_longdouble]  passed 9/10
+   W3(10, 7)    analytic= 4.531046e-05 numerical= 4.531046e-05 rel_err=5.74e-11 PASS
+   W3(14, 5)    analytic= 2.741333e-05 numerical= 2.741333e-05 rel_err=2.30e-10 PASS
+   W2(11, 12)   analytic= 4.972201e-07 numerical= 1.276224e-06 rel_err=6.10e-01 FAIL
+   W3(5, 1)     analytic=-6.617923e-05 numerical=-6.617923e-05 rel_err=9.50e-12 PASS
+   W1(20, 0)    analytic= 6.331511e-05 numerical= 6.331511e-05 rel_err=1.18e-10 PASS
+   W1(57, 5)    analytic= 3.454885e-07 numerical= 3.454885e-07 rel_err=1.89e-09 PASS
+   W3(0, 0)     analytic= 1.854080e-06 numerical= 1.854080e-06 rel_err=4.39e-09 PASS
+   W2(14, 5)    analytic= 1.519254e-04 numerical= 1.519254e-04 rel_err=2.43e-11 PASS
+   W1(52, 5)    analytic= 3.109397e-06 numerical= 3.109397e-06 rel_err=1.89e-09 PASS
+   W1(30, 1)    analytic= 9.024539e-06 numerical= 9.024539e-06 rel_err=2.79e-10 PASS
+W=16 [numerical_in_float64]  passed 6/10
+   W3(10, 7)    analytic= 4.531046e-05 numerical= 4.531044e-05 rel_err=4.20e-07 PASS
+   W3(14, 5)    analytic= 2.741333e-05 numerical= 2.741332e-05 rel_err=4.63e-07 PASS
+   W2(11, 12)   analytic= 4.972201e-07 numerical= 1.276224e-06 rel_err=6.10e-01 FAIL
+   W3(5, 1)     analytic=-6.617923e-05 numerical=-6.617924e-05 rel_err=1.86e-07 PASS
+   W1(20, 0)    analytic= 6.331511e-05 numerical= 6.331513e-05 rel_err=2.75e-07 PASS
+   W1(57, 5)    analytic= 3.454885e-07 numerical= 3.455014e-07 rel_err=3.73e-05 FAIL
+   W3(0, 0)     analytic= 1.854080e-06 numerical= 1.854072e-06 rel_err=4.33e-06 FAIL
+   W2(14, 5)    analytic= 1.519254e-04 numerical= 1.519254e-04 rel_err=1.76e-07 PASS
+   W1(52, 5)    analytic= 3.109397e-06 numerical= 3.109402e-06 rel_err=1.61e-06 FAIL
+   W1(30, 1)    analytic= 9.024539e-06 numerical= 9.024537e-06 rel_err=2.08e-07 PASS
+W=64 [numerical_in_longdouble]  passed 10/10
+   W3(40, 8)    analytic= 7.826751e-05 numerical= 7.826751e-05 rel_err=2.64e-11 PASS
+   W3(57, 9)    analytic= 7.031023e-06 numerical= 7.031023e-06 rel_err=2.26e-09 PASS
+   W2(51, 2)    analytic= 1.601464e-05 numerical= 1.601464e-05 rel_err=3.07e-10 PASS
+   W3(16, 2)    analytic= 1.118295e-04 numerical= 1.118295e-04 rel_err=4.35e-11 PASS
+   W1(19, 34)   analytic= 9.447019e-05 numerical= 9.447019e-05 rel_err=4.06e-11 PASS
+   W1(57, 14)   analytic= 3.479130e-05 numerical= 3.479130e-05 rel_err=3.73e-10 PASS
+   W3(0, 3)     analytic= 1.856353e-05 numerical= 1.856353e-05 rel_err=9.84e-11 PASS
+   W2(53, 17)   analytic=-5.443733e-06 numerical=-5.443733e-06 rel_err=8.81e-10 PASS
+   W1(52, 4)    analytic= 2.697323e-05 numerical= 2.697323e-05 rel_err=1.21e-10 PASS
+   W1(29, 55)   analytic=-3.134600e-05 numerical=-3.134600e-05 rel_err=2.01e-10 PASS
+W=64 [numerical_in_float64]  passed 7/10
+   W3(40, 8)    analytic= 7.826751e-05 numerical= 7.826750e-05 rel_err=5.76e-08 PASS
+   W3(57, 9)    analytic= 7.031023e-06 numerical= 7.031020e-06 rel_err=3.91e-07 PASS
+   W2(51, 2)    analytic= 1.601464e-05 numerical= 1.601461e-05 rel_err=1.54e-06 FAIL
+   W3(16, 2)    analytic= 1.118295e-04 numerical= 1.118295e-04 rel_err=5.41e-08 PASS
+   W1(19, 34)   analytic= 9.447019e-05 numerical= 9.447019e-05 rel_err=7.69e-08 PASS
+   W1(57, 14)   analytic= 3.479130e-05 numerical= 3.479130e-05 rel_err=7.69e-08 PASS
+   W3(0, 3)     analytic= 1.856353e-05 numerical= 1.856351e-05 rel_err=1.04e-06 FAIL
+   W2(53, 17)   analytic=-5.443733e-06 numerical=-5.443690e-06 rel_err=7.87e-06 FAIL
+   W1(52, 4)    analytic= 2.697323e-05 numerical= 2.697322e-05 rel_err=9.59e-08 PASS
+   W1(29, 55)   analytic=-3.134600e-05 numerical=-3.134599e-05 rel_err=1.61e-07 PASS
+
+=== 6. Training sweep ===
+  [W=16 lr=0.001] epoch  1  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.001] epoch  2  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.001] epoch  3  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.001] epoch  4  train_loss=2.3026  test_loss=2.3026  test_acc=0.1611
+  [W=16 lr=0.001] epoch  5  train_loss=2.3026  test_loss=2.3026  test_acc=0.1037
+  [W=16 lr=0.001] epoch  6  train_loss=2.3026  test_loss=2.3026  test_acc=0.1926
+  [W=16 lr=0.001] epoch  7  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.001] epoch  8  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.001] epoch  9  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.001] epoch 10  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.001] epoch 11  train_loss=2.3026  test_loss=2.3026  test_acc=0.1056
+  [W=16 lr=0.001] epoch 12  train_loss=2.3026  test_loss=2.3026  test_acc=0.1056
+  [W=16 lr=0.001] epoch 13  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 14  train_loss=2.3026  test_loss=2.3026  test_acc=0.0981
+  [W=16 lr=0.001] epoch 15  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.001] epoch 16  train_loss=2.3026  test_loss=2.3026  test_acc=0.1037
+  [W=16 lr=0.001] epoch 17  train_loss=2.3026  test_loss=2.3026  test_acc=0.1037
+  [W=16 lr=0.001] epoch 18  train_loss=2.3026  test_loss=2.3026  test_acc=0.0815
+  [W=16 lr=0.001] epoch 19  train_loss=2.3026  test_loss=2.3026  test_acc=0.0981
+  [W=16 lr=0.001] epoch 20  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 21  train_loss=2.3026  test_loss=2.3026  test_acc=0.1463
+  [W=16 lr=0.001] epoch 22  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.001] epoch 23  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.001] epoch 24  train_loss=2.3026  test_loss=2.3026  test_acc=0.1926
+  [W=16 lr=0.001] epoch 25  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 26  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 27  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 28  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 29  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 30  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 31  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 32  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 33  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 34  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 35  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 36  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 37  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 38  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 39  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 40  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 41  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 42  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 43  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 44  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 45  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 46  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 47  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.001] epoch 48  train_loss=2.3026  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.001] epoch 49  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.001] epoch 50  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch  1  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch  2  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch  3  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch  4  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch  5  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch  6  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch  7  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch  8  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch  9  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch 10  train_loss=2.3025  test_loss=2.3025  test_acc=0.0981
+  [W=16 lr=0.01 ] epoch 11  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch 12  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch 13  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 14  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch 15  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch 16  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch 17  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch 18  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch 19  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch 20  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch 21  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 22  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch 23  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.01 ] epoch 24  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 25  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 26  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 27  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 28  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 29  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 30  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 31  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 32  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 33  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 34  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 35  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 36  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 37  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 38  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 39  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 40  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 41  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 42  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 43  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 44  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 45  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 46  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 47  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 48  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 49  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.01 ] epoch 50  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch  1  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch  2  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch  3  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch  4  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch  5  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch  6  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch  7  train_loss=2.3025  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch  8  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch  9  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch 10  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch 11  train_loss=2.3025  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch 12  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch 13  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch 14  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch 15  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch 16  train_loss=2.3025  test_loss=2.3026  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch 17  train_loss=2.3025  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch 18  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch 19  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch 20  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch 21  train_loss=2.3024  test_loss=2.3025  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch 22  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch 23  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch 24  train_loss=2.3025  test_loss=2.3024  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch 25  train_loss=2.3024  test_loss=2.3024  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch 26  train_loss=2.3024  test_loss=2.3023  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch 27  train_loss=2.3023  test_loss=2.3023  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch 28  train_loss=2.3023  test_loss=2.3023  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch 29  train_loss=2.3022  test_loss=2.3022  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch 30  train_loss=2.3021  test_loss=2.3021  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch 31  train_loss=2.3020  test_loss=2.3020  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch 32  train_loss=2.3019  test_loss=2.3019  test_acc=0.1000
+  [W=16 lr=0.1  ] epoch 33  train_loss=2.3016  test_loss=2.3016  test_acc=0.1019
+  [W=16 lr=0.1  ] epoch 34  train_loss=2.3013  test_loss=2.3013  test_acc=0.1981
+  [W=16 lr=0.1  ] epoch 35  train_loss=2.3008  test_loss=2.3008  test_acc=0.1111
+  [W=16 lr=0.1  ] epoch 36  train_loss=2.2998  test_loss=2.2999  test_acc=0.1352
+  [W=16 lr=0.1  ] epoch 37  train_loss=2.2980  test_loss=2.2980  test_acc=0.1981
+  [W=16 lr=0.1  ] epoch 38  train_loss=2.2942  test_loss=2.2941  test_acc=0.1963
+  [W=16 lr=0.1  ] epoch 39  train_loss=2.2850  test_loss=2.2850  test_acc=0.2241
+  [W=16 lr=0.1  ] epoch 40  train_loss=2.2561  test_loss=2.2559  test_acc=0.2019
+  [W=16 lr=0.1  ] epoch 41  train_loss=2.1503  test_loss=2.1501  test_acc=0.2000
+  [W=16 lr=0.1  ] epoch 42  train_loss=1.9175  test_loss=1.9201  test_acc=0.2074
+  [W=16 lr=0.1  ] epoch 43  train_loss=1.7781  test_loss=1.7844  test_acc=0.2296
+  [W=16 lr=0.1  ] epoch 44  train_loss=1.7439  test_loss=1.7513  test_acc=0.2630
+  [W=16 lr=0.1  ] epoch 45  train_loss=1.6626  test_loss=1.6709  test_acc=0.3204
+  [W=16 lr=0.1  ] epoch 46  train_loss=1.8581  test_loss=1.8752  test_acc=0.2519
+  [W=16 lr=0.1  ] epoch 47  train_loss=1.6630  test_loss=1.6838  test_acc=0.3167
+  [W=16 lr=0.1  ] epoch 48  train_loss=1.4866  test_loss=1.5121  test_acc=0.4167
+  [W=16 lr=0.1  ] epoch 49  train_loss=2.2266  test_loss=2.2420  test_acc=0.1889
+  [W=16 lr=0.1  ] epoch 50  train_loss=1.5625  test_loss=1.6117  test_acc=0.5037
+  [W=64 lr=0.001] epoch  1  train_loss=2.3026  test_loss=2.3026  test_acc=0.0481
+  [W=64 lr=0.001] epoch  2  train_loss=2.3026  test_loss=2.3026  test_acc=0.0667
+  [W=64 lr=0.001] epoch  3  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=64 lr=0.001] epoch  4  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch  5  train_loss=2.3026  test_loss=2.3026  test_acc=0.0333
+  [W=64 lr=0.001] epoch  6  train_loss=2.3026  test_loss=2.3026  test_acc=0.0185
+  [W=64 lr=0.001] epoch  7  train_loss=2.3026  test_loss=2.3026  test_acc=0.0889
+  [W=64 lr=0.001] epoch  8  train_loss=2.3026  test_loss=2.3026  test_acc=0.0685
+  [W=64 lr=0.001] epoch  9  train_loss=2.3026  test_loss=2.3026  test_acc=0.0870
+  [W=64 lr=0.001] epoch 10  train_loss=2.3026  test_loss=2.3026  test_acc=0.1000
+  [W=64 lr=0.001] epoch 11  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch 12  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch 13  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch 14  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch 15  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch 16  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch 17  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch 18  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch 19  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch 20  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch 21  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch 22  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch 23  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch 24  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch 25  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch 26  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.001] epoch 27  train_loss=2.3026  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 28  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 29  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 30  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 31  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 32  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 33  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 34  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 35  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 36  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 37  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 38  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 39  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 40  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 41  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 42  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 43  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 44  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 45  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 46  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 47  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 48  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 49  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.001] epoch 50  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch  1  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch  2  train_loss=2.3026  test_loss=2.3026  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch  3  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch  4  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch  5  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch  6  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch  7  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch  8  train_loss=2.3025  test_loss=2.3025  test_acc=0.1185
+  [W=64 lr=0.01 ] epoch  9  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 10  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 11  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 12  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 13  train_loss=2.3025  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 14  train_loss=2.3025  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 15  train_loss=2.3025  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 16  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 17  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 18  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 19  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 20  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 21  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 22  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 23  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 24  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 25  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 26  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 27  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 28  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 29  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 30  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 31  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 32  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 33  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 34  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 35  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 36  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 37  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 38  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 39  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 40  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 41  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 42  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 43  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 44  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 45  train_loss=2.3024  test_loss=2.3023  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 46  train_loss=2.3024  test_loss=2.3023  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 47  train_loss=2.3024  test_loss=2.3023  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 48  train_loss=2.3023  test_loss=2.3023  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 49  train_loss=2.3023  test_loss=2.3023  test_acc=0.1019
+  [W=64 lr=0.01 ] epoch 50  train_loss=2.3023  test_loss=2.3023  test_acc=0.1019
+  [W=64 lr=0.1  ] epoch  1  train_loss=2.3025  test_loss=2.3025  test_acc=0.1019
+  [W=64 lr=0.1  ] epoch  2  train_loss=2.3025  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.1  ] epoch  3  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.1  ] epoch  4  train_loss=2.3024  test_loss=2.3024  test_acc=0.1019
+  [W=64 lr=0.1  ] epoch  5  train_loss=2.3024  test_loss=2.3024  test_acc=0.1000
+  [W=64 lr=0.1  ] epoch  6  train_loss=2.3023  test_loss=2.3023  test_acc=0.1000
+  [W=64 lr=0.1  ] epoch  7  train_loss=2.3023  test_loss=2.3023  test_acc=0.1019
+  [W=64 lr=0.1  ] epoch  8  train_loss=2.3023  test_loss=2.3023  test_acc=0.1019
+  [W=64 lr=0.1  ] epoch  9  train_loss=2.3022  test_loss=2.3022  test_acc=0.1019
+  [W=64 lr=0.1  ] epoch 10  train_loss=2.3021  test_loss=2.3021  test_acc=0.1000
+  [W=64 lr=0.1  ] epoch 11  train_loss=2.3020  test_loss=2.3020  test_acc=0.1019
+  [W=64 lr=0.1  ] epoch 12  train_loss=2.3019  test_loss=2.3019  test_acc=0.1019
+  [W=64 lr=0.1  ] epoch 13  train_loss=2.3018  test_loss=2.3018  test_acc=0.1481
+  [W=64 lr=0.1  ] epoch 14  train_loss=2.3015  test_loss=2.3015  test_acc=0.1019
+  [W=64 lr=0.1  ] epoch 15  train_loss=2.3011  test_loss=2.3011  test_acc=0.1037
+  [W=64 lr=0.1  ] epoch 16  train_loss=2.3006  test_loss=2.3006  test_acc=0.1019
+  [W=64 lr=0.1  ] epoch 17  train_loss=2.2997  test_loss=2.2997  test_acc=0.1037
+  [W=64 lr=0.1  ] epoch 18  train_loss=2.2982  test_loss=2.2982  test_acc=0.1630
+  [W=64 lr=0.1  ] epoch 19  train_loss=2.2953  test_loss=2.2952  test_acc=0.2204
+  [W=64 lr=0.1  ] epoch 20  train_loss=2.2881  test_loss=2.2878  test_acc=0.2481
+  [W=64 lr=0.1  ] epoch 21  train_loss=2.2684  test_loss=2.2676  test_acc=0.2019
+  [W=64 lr=0.1  ] epoch 22  train_loss=2.2011  test_loss=2.1990  test_acc=0.1981
+  [W=64 lr=0.1  ] epoch 23  train_loss=2.0095  test_loss=2.0027  test_acc=0.2000
+  [W=64 lr=0.1  ] epoch 24  train_loss=1.7685  test_loss=1.7599  test_acc=0.3167
+  [W=64 lr=0.1  ] epoch 25  train_loss=1.6269  test_loss=1.6244  test_acc=0.3556
+  [W=64 lr=0.1  ] epoch 26  train_loss=1.4836  test_loss=1.4876  test_acc=0.4222
+  [W=64 lr=0.1  ] epoch 27  train_loss=1.1824  test_loss=1.2047  test_acc=0.5815
+  [W=64 lr=0.1  ] epoch 28  train_loss=1.1292  test_loss=1.1575  test_acc=0.5352
+  [W=64 lr=0.1  ] epoch 29  train_loss=1.2607  test_loss=1.3027  test_acc=0.4704
+  [W=64 lr=0.1  ] epoch 30  train_loss=0.8911  test_loss=0.9201  test_acc=0.6630
+  [W=64 lr=0.1  ] epoch 31  train_loss=0.8442  test_loss=0.8850  test_acc=0.6667
+  [W=64 lr=0.1  ] epoch 32  train_loss=0.7664  test_loss=0.8048  test_acc=0.7185
+  [W=64 lr=0.1  ] epoch 33  train_loss=0.6085  test_loss=0.6584  test_acc=0.7833
+  [W=64 lr=0.1  ] epoch 34  train_loss=0.5573  test_loss=0.6154  test_acc=0.8019
+  [W=64 lr=0.1  ] epoch 35  train_loss=0.5587  test_loss=0.5932  test_acc=0.7907
+  [W=64 lr=0.1  ] epoch 36  train_loss=1.0020  test_loss=1.0602  test_acc=0.6389
+  [W=64 lr=0.1  ] epoch 37  train_loss=0.3596  test_loss=0.4235  test_acc=0.8685
+  [W=64 lr=0.1  ] epoch 38  train_loss=0.3244  test_loss=0.3791  test_acc=0.9056
+  [W=64 lr=0.1  ] epoch 39  train_loss=0.2689  test_loss=0.3272  test_acc=0.9019
+  [W=64 lr=0.1  ] epoch 40  train_loss=0.4169  test_loss=0.4793  test_acc=0.8537
+  [W=64 lr=0.1  ] epoch 41  train_loss=0.2656  test_loss=0.3165  test_acc=0.8926
+  [W=64 lr=0.1  ] epoch 42  train_loss=0.2058  test_loss=0.2774  test_acc=0.9185
+  [W=64 lr=0.1  ] epoch 43  train_loss=0.5305  test_loss=0.5976  test_acc=0.8185
+  [W=64 lr=0.1  ] epoch 44  train_loss=0.2549  test_loss=0.3618  test_acc=0.8741
+  [W=64 lr=0.1  ] epoch 45  train_loss=0.2047  test_loss=0.2642  test_acc=0.9259
+  [W=64 lr=0.1  ] epoch 46  train_loss=0.1712  test_loss=0.2489  test_acc=0.9222
+  [W=64 lr=0.1  ] epoch 47  train_loss=0.1869  test_loss=0.2534  test_acc=0.9167
+  [W=64 lr=0.1  ] epoch 48  train_loss=0.1620  test_loss=0.2496  test_acc=0.9204
+  [W=64 lr=0.1  ] epoch 49  train_loss=0.1683  test_loss=0.2462  test_acc=0.9352
+  [W=64 lr=0.1  ] epoch 50  train_loss=0.1983  test_loss=0.3096  test_acc=0.9056
+saved results/loss_curves.png
+
+Final results (epoch 50):
+  W     lr train_loss  test_loss train_acc test_acc
+ 16  0.001     2.3025     2.3025    0.1018   0.1019
+ 16   0.01     2.3025     2.3025    0.1018   0.1019
+ 16    0.1     1.5625     1.6117    0.4956   0.5037
+ 64  0.001     2.3025     2.3025    0.1018   0.1019
+ 64   0.01     2.3023     2.3023    0.1018   0.1019
+ 64    0.1     0.1983     0.3096    0.9340   0.9056
+
+=== 7. Timing (median of 100 runs) ===
+W=16 batch=  32: forward     13.2 us | backward     14.4 us | bwd/fwd = 1.09 | matmul MACs fwd 46,080 bwd 59,392 (ratio 1.29)
+W=16 batch=1257: forward    270.2 us | backward    308.6 us | bwd/fwd = 1.14 | matmul MACs fwd 1,810,080 bwd 2,332,992 (ratio 1.29)
+W=64 batch=  32: forward     22.8 us | backward     30.6 us | bwd/fwd = 1.34 | matmul MACs fwd 282,624 bwd 434,176 (ratio 1.54)
+W=64 batch=1257: forward    829.3 us | backward   1122.4 us | bwd/fwd = 1.35 | matmul MACs fwd 11,101,824 bwd 17,054,976 (ratio 1.54)
+saved results/results.json
