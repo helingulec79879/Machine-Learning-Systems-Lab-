@@ -1,0 +1,181 @@
+{
+  "env": {
+    "python": "3.11.18",
+    "torch": "2.15.0+cpu",
+    "platform": "Linux-7.0.0-1020-azure-x86_64-with-glibc2.43",
+    "cpu_count": 4
+  },
+  "task3": {
+    "x*x+x grad": 7.0,
+    "a+a grad": 2.0,
+    "passed": true
+  },
+  "task4": {
+    "forward_ours": 8.215245855751819,
+    "forward_torch": 8.21524585575182,
+    "rows": [
+      {
+        "input": "a",
+        "ours_vs_torch": 0.0,
+        "ours_vs_numeric": 5.521521018181375e-10,
+        "torch_vs_numeric": 5.521521018181375e-10
+      },
+      {
+        "input": "b",
+        "ours_vs_torch": 0.0,
+        "ours_vs_numeric": 6.853859702005138e-10,
+        "torch_vs_numeric": 6.853859702005138e-10
+      },
+      {
+        "input": "c",
+        "ours_vs_torch": 0.0,
+        "ours_vs_numeric": 8.205454093968001e-10,
+        "torch_vs_numeric": 8.205454093968001e-10
+      }
+    ],
+    "max_abs_diff": 8.205454093968001e-10,
+    "pass": true
+  },
+  "task5": {
+    "epochs": 100,
+    "n_samples": 100,
+    "lr": 0.5,
+    "loss_first": [
+      0.7313021395551368,
+      0.7313021395551367
+    ],
+    "loss_last": [
+      0.15539043619294327,
+      0.15539043619294327
+    ],
+    "max_loss_diff": 2.7755575615628914e-16,
+    "acc": [
+      0.93,
+      0.93
+    ],
+    "median_ms_ours": 12715.949007000007,
+    "median_ms_torch": 28.870073999996748,
+    "runs_ms_ours": [
+      12675.012274000012,
+      12715.949007000007,
+      12861.913876999992,
+      12334.94604900001,
+      12789.468845999978
+    ],
+    "runs_ms_torch": [
+      32.50130600000034,
+      28.917020999983833,
+      28.761380999981156,
+      28.695268999996415,
+      28.870073999996748
+    ],
+    "speedup": 440.4543267537672
+  },
+  "task6": {
+    "fx_nodes": [
+      "placeholder:x",
+      "call_module:fc1",
+      "call_function:<built-in function gelu>",
+      "call_function:<built-in method sigmoid of type object at 0x76baf7df3d80>",
+      "call_function:<built-in function mul>",
+      "call_function:<built-in function add>",
+      "call_module:ln",
+      "call_module:fc2",
+      "call_method:relu",
+      "output:output"
+    ],
+    "autograd_nodes": [
+      "SumBackward0",
+      "  ReluBackward0",
+      "    AddmmBackward0",
+      "      TBackward0",
+      "        AccumulateGrad",
+      "      NativeLayerNormBackward0",
+      "        AccumulateGrad",
+      "        AccumulateGrad",
+      "        AddBackward0",
+      "          AccumulateGrad",
+      "          MulBackward0",
+      "            SigmoidBackward0",
+      "              GeluBackward0",
+      "                AddmmBackward0",
+      "                  TBackward0",
+      "                    AccumulateGrad",
+      "                  AccumulateGrad",
+      "      AccumulateGrad"
+    ],
+    "tensor_props": {
+      "x": [
+        [
+          64,
+          256
+        ],
+        "torch.float32",
+        [
+          256,
+          1
+        ],
+        true
+      ]
+    },
+    "compile_mode": "torch.compile (inductor)",
+    "compile_seconds": 11.422284922000017,
+    "eager_vs_compiled": [
+      {
+        "batch": 1,
+        "eager_ms": 0.0963772800002971,
+        "compiled_ms": 0.061193540000203946,
+        "speedup": 1.574958402471501
+      },
+      {
+        "batch": 64,
+        "eager_ms": 0.2694573799999489,
+        "compiled_ms": 0.2392341000000897,
+        "speedup": 1.1263334950989339
+      },
+      {
+        "batch": 1024,
+        "eager_ms": 2.4464826199999834,
+        "compiled_ms": 2.45301980000022,
+        "speedup": 0.9973350480088926
+      },
+      {
+        "batch": 8192,
+        "eager_ms": 35.0086087599999,
+        "compiled_ms": 25.160159019999924,
+        "speedup": 1.3914303455781578
+      }
+    ],
+    "train_step": {
+      "eager_ms": 6.54001715000021,
+      "compiled_ms": 7.832790350001062
+    },
+    "noncontig": [
+      {
+        "op": "elementwise x*2+1",
+        "contig_ms": 34.332729700000186,
+        "noncontig_ms": 33.6854905999985,
+        "ratio": 0.9811480442814401
+      },
+      {
+        "op": "row sum sum(dim=1)",
+        "contig_ms": 1.1499686000007614,
+        "noncontig_ms": 2.35624800000096,
+        "ratio": 2.0489672500617844
+      },
+      {
+        "op": "exp()",
+        "contig_ms": 23.49559129999932,
+        "noncontig_ms": 23.552486299999487,
+        "ratio": 1.0024215181168976
+      },
+      {
+        "op": "x*2+1 on [:, ::2] (same numel)",
+        "contig_ms": 18.00410769999985,
+        "noncontig_ms": 19.20495890000211,
+        "ratio": 1.0666987345339127
+      }
+    ],
+    "contiguous_copy_ms": 51.096752699999115
+  }
+}
