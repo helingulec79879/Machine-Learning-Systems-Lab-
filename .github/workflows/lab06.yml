@@ -9,6 +9,9 @@ on:
         type: choice
         options: [quick, full]
 
+permissions:
+  contents: write
+
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -52,6 +55,19 @@ jobs:
           for s in workers batch sched accum resume export; do
             python src/experiments.py $s 2>&1 | tee results/logs/study_$s.txt
           done
+
+      - name: Commit results to the repository
+        if: inputs.mode == 'full'
+        run: |
+          mkdir -p results/baseline
+          cp checkpoints/baseline/curves.png checkpoints/baseline/history.csv results/baseline/
+          cd ..
+          git config user.name helingulec79879
+          git config user.email helingulec79879@users.noreply.github.com
+          git add lab06/results
+          git commit -m "Lab 6: experiment results (baseline, profile, studies, MLflow runs)"
+          git pull --rebase
+          git push
 
       - uses: actions/upload-artifact@v4
         if: always()
