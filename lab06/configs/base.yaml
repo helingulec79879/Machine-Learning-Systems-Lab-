@@ -1,0 +1,59 @@
+# Lab 6 – single source of truth for a training run (run from lab06/).
+# Every value is logged to MLflow as a parameter (flattened, e.g. optimizer.lr).
+# Override any key from the command line:
+#   python src/train.py --set train.batch_size=256 optimizer.name=sgd optimizer.lr=0.05
+
+experiment_name: lab06
+run_name: baseline
+seed: 0                       # same seed as Lab 3
+deterministic: false          # true = deterministic kernels (slower, bit-reproducible)
+device: auto                  # auto | cuda | mps | cpu
+
+data:
+  dataset: fashionmnist       # Lab 3 dataset
+  root: ../data               # shared data/ folder at the repo root (git-ignored)
+  val_size: 5000              # 55k train / 5k val, fixed by `seed` (as in Lab 3)
+  subset_fraction: 1.0        # <1.0 only for quick smoke tests
+  augment: false              # Lab 3 used no augmentation
+  num_workers: 2
+  pin_memory: true            # only applied on CUDA
+  persistent_workers: true
+  prefetch_factor: 2
+  eval_batch_size: 512
+
+model:
+  name: cnn                   # best model of Lab 3 (src/models.py)
+  num_classes: 10
+
+train:
+  epochs: 10
+  batch_size: 128             # Lab 3 setting
+  grad_accum_steps: 1         # effective batch = batch_size * grad_accum_steps
+  max_steps_per_epoch: null   # e.g. 20 for a smoke test
+  stop_after_epoch: null      # simulate an interruption (Task 7)
+
+optimizer:
+  name: adam                  # Lab 3 setting; sgd | adam | adamw
+  lr: 0.001
+  momentum: 0.9               # SGD only
+  nesterov: false
+  weight_decay: 0.0           # write decimals, not 5e-4 (PyYAML reads 5e-4 as a string)
+
+scheduler:
+  name: none                  # none | step | cosine | plateau
+  step_size: 3                # StepLR
+  gamma: 0.1                  # StepLR
+  eta_min: 0.0                # CosineAnnealingLR
+  factor: 0.5                 # ReduceLROnPlateau
+  patience: 1                 # ReduceLROnPlateau
+
+checkpoint:
+  dir: ./checkpoints
+  resume: null                # null | auto | path/to/last.pt
+  keep_every_epoch: false
+
+mlflow:
+  tracking_uri: ./mlruns
+  log_model_artifact: true
+
+tags: {}

@@ -1,0 +1,64 @@
+name: lab06
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "quick (smoke test) or full (all Lab 6 experiments)"
+        default: quick
+        type: choice
+        options: [quick, full]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    defaults:
+      run:
+        shell: bash
+        working-directory: lab06
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install (versions from requirements.txt, CPU build of torch)
+        run: |
+          pip install torch==2.3.1 torchvision==0.18.1 --index-url https://download.pytorch.org/whl/cpu
+          pip install numpy==1.26.4 mlflow==2.14.1 pyyaml==6.0.1 matplotlib==3.9.0 psutil==5.9.8
+          mkdir -p results/logs
+          python -c "import torch, os; print(torch.__version__, os.cpu_count(), 'CPUs')" | tee results/logs/env.txt
+
+      - name: Smoke test
+        run: python src/train.py --set train.epochs=2 train.max_steps_per_epoch=20 data.subset_fraction=0.1 run_name=smoke
+
+      - name: Quick run of every study
+        if: inputs.mode == 'quick'
+        run: python src/experiments.py all --quick
+
+      - name: Task 1 baseline
+        if: inputs.mode == 'full'
+        run: python src/train.py 2>&1 | tee results/logs/task1_baseline.txt
+
+      - name: Task 2 profile
+        if: inputs.mode == 'full'
+        run: python src/profile_epoch.py 2>&1 | tee results/logs/task2_profile.txt
+
+      - name: Tasks 3-7 studies
+        if: inputs.mode == 'full'
+        run: |
+          for s in workers batch sched accum resume export; do
+            python src/experiments.py $s 2>&1 | tee results/logs/study_$s.txt
+          done
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lab06-${{ inputs.mode }}
+          path: |
+            lab06/results
+            lab06/results_quick
+            lab06/checkpoints/*/curves.png
+            lab06/checkpoints/*/history.csv
