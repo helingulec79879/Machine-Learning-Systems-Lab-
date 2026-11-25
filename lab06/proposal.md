@@ -1,6 +1,6 @@
 # Individual Project Proposal
 
-**Student:** [Name Surname] · **Student ID:** [ID] · **Course:** Machine Learning Systems · **Date:** 25.11.2026
+**Student:** Helin Agze Gulec · **Student ID:** 79879 · **Course:** Machine Learning Systems · **Date:** 25.11.2026
 
 **Title:** On-device waste-sorting classifier for a smart recycling bin
 
