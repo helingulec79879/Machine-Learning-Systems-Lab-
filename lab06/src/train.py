@@ -314,7 +314,7 @@ def run(cfg):
         if start_epoch == 1:
             mlflow.log_params(flatten(cfg))
             mlflow.log_params({"model.n_params": n_params, "model.size_mb_fp32": round(size_mb, 3),
-                               "device": str(device), "effective_batch_size": tr["batch_size"] * accum,
+                               "device_used": str(device), "effective_batch_size": tr["batch_size"] * accum,
                                "torch_version": torch.__version__})
             mlflow.set_tags({str(k): str(v) for k, v in (cfg.get("tags") or {}).items()})
             mlflow.log_dict(cfg, "config.yaml")
