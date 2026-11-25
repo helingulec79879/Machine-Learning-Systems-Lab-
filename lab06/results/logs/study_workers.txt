@@ -1,0 +1,35 @@
+
+===== workers: nw0 =====
+device=cpu  params=20,490  size=0.08 MB  batch=128x1  epochs=1
+epoch   1/1 | loss 0.5347 acc 0.8106 | val_loss 0.3930 val_acc 0.8582 | lr 0.00100 | 3058 samples/s | 636 MB
+test_acc=0.8583  best_val_acc=0.8582  run_id=10fb740c0e8d4f08b7e8bce2fa67087a
+
+===== workers: nw1 =====
+device=cpu  params=20,490  size=0.08 MB  batch=128x1  epochs=1
+epoch   1/1 | loss 0.5347 acc 0.8106 | val_loss 0.3930 val_acc 0.8582 | lr 0.00100 | 4807 samples/s | 679 MB
+test_acc=0.8583  best_val_acc=0.8582  run_id=27745135fa0b491a94381aeb22e5c836
+
+===== workers: nw2 =====
+device=cpu  params=20,490  size=0.08 MB  batch=128x1  epochs=1
+epoch   1/1 | loss 0.5347 acc 0.8106 | val_loss 0.3930 val_acc 0.8582 | lr 0.00100 | 4907 samples/s | 679 MB
+test_acc=0.8583  best_val_acc=0.8582  run_id=0fc0ad773b49400ab6d60cf27622e3cb
+
+===== workers: nw4 =====
+device=cpu  params=20,490  size=0.08 MB  batch=128x1  epochs=1
+epoch   1/1 | loss 0.5347 acc 0.8106 | val_loss 0.3930 val_acc 0.8582 | lr 0.00100 | 4754 samples/s | 680 MB
+test_acc=0.8583  best_val_acc=0.8582  run_id=0c1ece36e5644731808e4a999174f4c3
+/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 8 worker processes in total. Our suggested max number of worker in current system is 4, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+
+===== workers: nw8 =====
+device=cpu  params=20,490  size=0.08 MB  batch=128x1  epochs=1
+epoch   1/1 | loss 0.5347 acc 0.8106 | val_loss 0.3930 val_acc 0.8582 | lr 0.00100 | 4816 samples/s | 682 MB
+test_acc=0.8583  best_val_acc=0.8582  run_id=d13623b67d844ec5b7d4d022557fee64
+| num_workers | loader_only_samples_per_s | train_samples_per_s | epoch_time_s | first_batch_latency_s | train/loader_ratio |
+|---|---|---|---|---|---|
+| 0 | 7632.0 | 3057.8 | 18.0 | 0.0235 | 0.4007 |
+| 1 | 6731.4 | 4807.0 | 11.4 | 0.0578 | 0.7141 |
+| 2 | 12325.7 | 4906.7 | 11.2 | 0.0794 | 0.3981 |
+| 4 | 17542.7 | 4754.1 | 11.6 | 0.1320 | 0.2710 |
+| 8 | 17428.0 | 4816.1 | 11.4 | 0.2658 | 0.2763 |
+Bottleneck rule: where train ≈ loader-only throughput the input pipeline is the bottleneck; where training stays flat while the loader keeps getting faster, compute is the bottleneck.

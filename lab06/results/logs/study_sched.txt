@@ -1,0 +1,62 @@
+
+===== sched: sgd_step =====
+device=cpu  params=20,490  size=0.08 MB  batch=128x1  epochs=10
+epoch   1/10 | loss 0.4795 acc 0.8332 | val_loss 0.3778 val_acc 0.8642 | lr 0.05000 | 4190 samples/s | 636 MB
+epoch   2/10 | loss 0.3114 acc 0.8885 | val_loss 0.3028 val_acc 0.8884 | lr 0.05000 | 5082 samples/s | 633 MB
+epoch   3/10 | loss 0.2795 acc 0.8984 | val_loss 0.2880 val_acc 0.8966 | lr 0.05000 | 5250 samples/s | 652 MB
+epoch   4/10 | loss 0.2247 acc 0.9193 | val_loss 0.2685 val_acc 0.9024 | lr 0.00500 | 5214 samples/s | 652 MB
+epoch   5/10 | loss 0.2151 acc 0.9223 | val_loss 0.2615 val_acc 0.9044 | lr 0.00500 | 5178 samples/s | 652 MB
+epoch   6/10 | loss 0.2100 acc 0.9245 | val_loss 0.2589 val_acc 0.9076 | lr 0.00500 | 5217 samples/s | 652 MB
+epoch   7/10 | loss 0.2018 acc 0.9277 | val_loss 0.2573 val_acc 0.9090 | lr 0.00050 | 5175 samples/s | 652 MB
+epoch   8/10 | loss 0.2011 acc 0.9275 | val_loss 0.2569 val_acc 0.9098 | lr 0.00050 | 5126 samples/s | 652 MB
+epoch   9/10 | loss 0.2003 acc 0.9279 | val_loss 0.2583 val_acc 0.9084 | lr 0.00050 | 5182 samples/s | 652 MB
+epoch  10/10 | loss 0.1997 acc 0.9283 | val_loss 0.2572 val_acc 0.9088 | lr 0.00005 | 5087 samples/s | 652 MB
+test_acc=0.9063  best_val_acc=0.9098  run_id=0c76a2cb2d8c4db29bd89b1d48d55c0b
+
+===== sched: sgd_cosine =====
+device=cpu  params=20,490  size=0.08 MB  batch=128x1  epochs=10
+epoch   1/10 | loss 0.4795 acc 0.8332 | val_loss 0.3778 val_acc 0.8642 | lr 0.05000 | 5147 samples/s | 650 MB
+epoch   2/10 | loss 0.3107 acc 0.8889 | val_loss 0.2958 val_acc 0.8912 | lr 0.04878 | 5083 samples/s | 656 MB
+epoch   3/10 | loss 0.2754 acc 0.9015 | val_loss 0.2903 val_acc 0.8938 | lr 0.04523 | 5153 samples/s | 656 MB
+epoch   4/10 | loss 0.2560 acc 0.9071 | val_loss 0.2920 val_acc 0.8976 | lr 0.03969 | 5180 samples/s | 656 MB
+epoch   5/10 | loss 0.2351 acc 0.9153 | val_loss 0.2789 val_acc 0.8960 | lr 0.03273 | 5097 samples/s | 656 MB
+epoch   6/10 | loss 0.2156 acc 0.9223 | val_loss 0.2701 val_acc 0.9034 | lr 0.02500 | 5110 samples/s | 656 MB
+epoch   7/10 | loss 0.2002 acc 0.9282 | val_loss 0.2611 val_acc 0.9050 | lr 0.01727 | 5155 samples/s | 656 MB
+epoch   8/10 | loss 0.1861 acc 0.9329 | val_loss 0.2591 val_acc 0.9050 | lr 0.01031 | 5116 samples/s | 656 MB
+epoch   9/10 | loss 0.1743 acc 0.9376 | val_loss 0.2531 val_acc 0.9108 | lr 0.00477 | 5170 samples/s | 656 MB
+epoch  10/10 | loss 0.1680 acc 0.9403 | val_loss 0.2535 val_acc 0.9092 | lr 0.00122 | 5075 samples/s | 650 MB
+test_acc=0.9109  best_val_acc=0.9108  run_id=4beeade4f6d84477b07a6011336e14f3
+
+===== sched: sgd_plateau =====
+device=cpu  params=20,490  size=0.08 MB  batch=128x1  epochs=10
+epoch   1/10 | loss 0.4795 acc 0.8332 | val_loss 0.3778 val_acc 0.8642 | lr 0.05000 | 4922 samples/s | 677 MB
+epoch   2/10 | loss 0.3114 acc 0.8885 | val_loss 0.3028 val_acc 0.8884 | lr 0.05000 | 5187 samples/s | 656 MB
+epoch   3/10 | loss 0.2795 acc 0.8984 | val_loss 0.2880 val_acc 0.8966 | lr 0.05000 | 5161 samples/s | 656 MB
+epoch   4/10 | loss 0.2668 acc 0.9034 | val_loss 0.2998 val_acc 0.8948 | lr 0.05000 | 5233 samples/s | 650 MB
+epoch   5/10 | loss 0.2469 acc 0.9109 | val_loss 0.2964 val_acc 0.8918 | lr 0.05000 | 4974 samples/s | 650 MB
+epoch   6/10 | loss 0.2128 acc 0.9235 | val_loss 0.2668 val_acc 0.9040 | lr 0.02500 | 5041 samples/s | 656 MB
+epoch   7/10 | loss 0.2040 acc 0.9261 | val_loss 0.2730 val_acc 0.9000 | lr 0.02500 | 5107 samples/s | 650 MB
+epoch   8/10 | loss 0.2008 acc 0.9280 | val_loss 0.2657 val_acc 0.9002 | lr 0.02500 | 4988 samples/s | 650 MB
+epoch   9/10 | loss 0.1949 acc 0.9293 | val_loss 0.2771 val_acc 0.9052 | lr 0.02500 | 5169 samples/s | 650 MB
+epoch  10/10 | loss 0.1910 acc 0.9294 | val_loss 0.2886 val_acc 0.9000 | lr 0.02500 | 5041 samples/s | 650 MB
+test_acc=0.9055  best_val_acc=0.9052  run_id=9e6553f4e5a24272ba8d26c0343f70d2
+
+===== sched: adam_cosine =====
+device=cpu  params=20,490  size=0.08 MB  batch=128x1  epochs=10
+epoch   1/10 | loss 0.5347 acc 0.8106 | val_loss 0.3930 val_acc 0.8582 | lr 0.00100 | 4796 samples/s | 680 MB
+epoch   2/10 | loss 0.3431 acc 0.8772 | val_loss 0.3270 val_acc 0.8848 | lr 0.00098 | 4950 samples/s | 660 MB
+epoch   3/10 | loss 0.3023 acc 0.8923 | val_loss 0.3032 val_acc 0.8874 | lr 0.00090 | 4909 samples/s | 660 MB
+epoch   4/10 | loss 0.2783 acc 0.9009 | val_loss 0.2929 val_acc 0.8926 | lr 0.00079 | 5059 samples/s | 660 MB
+epoch   5/10 | loss 0.2592 acc 0.9069 | val_loss 0.2910 val_acc 0.8902 | lr 0.00065 | 5089 samples/s | 660 MB
+epoch   6/10 | loss 0.2436 acc 0.9131 | val_loss 0.2703 val_acc 0.9022 | lr 0.00050 | 4985 samples/s | 654 MB
+epoch   7/10 | loss 0.2327 acc 0.9170 | val_loss 0.2670 val_acc 0.8998 | lr 0.00035 | 5127 samples/s | 660 MB
+epoch   8/10 | loss 0.2230 acc 0.9215 | val_loss 0.2627 val_acc 0.9016 | lr 0.00021 | 4972 samples/s | 660 MB
+epoch   9/10 | loss 0.2164 acc 0.9237 | val_loss 0.2594 val_acc 0.9032 | lr 0.00010 | 4919 samples/s | 660 MB
+epoch  10/10 | loss 0.2124 acc 0.9256 | val_loss 0.2585 val_acc 0.9044 | lr 0.00002 | 5038 samples/s | 660 MB
+test_acc=0.9061  best_val_acc=0.9044  run_id=1a10ca750c3c46caade09cfb3e0909e0
+| run | final_val_acc | best_val_acc | best_epoch | final_train_loss | final_val_loss | test_acc | total_time_s |
+|---|---|---|---|---|---|---|---|
+| sgd_step | 0.9088 | 0.9098 | 8 | 0.1997 | 0.2572 | 0.9063 | 108.7 |
+| sgd_cosine | 0.9092 | 0.9108 | 9 | 0.1680 | 0.2535 | 0.9109 | 107.1 |
+| sgd_plateau | 0.9000 | 0.9052 | 9 | 0.1910 | 0.2886 | 0.9055 | 108.1 |
+| adam_cosine | 0.9044 | 0.9044 | 10 | 0.2124 | 0.2585 | 0.9061 | 110.2 |

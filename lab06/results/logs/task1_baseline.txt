@@ -1,0 +1,67 @@
+{
+  "experiment_name": "lab06",
+  "run_name": "baseline",
+  "seed": 0,
+  "deterministic": false,
+  "device": "auto",
+  "data": {
+    "dataset": "fashionmnist",
+    "root": "../data",
+    "val_size": 5000,
+    "subset_fraction": 1.0,
+    "augment": false,
+    "num_workers": 2,
+    "pin_memory": true,
+    "persistent_workers": true,
+    "prefetch_factor": 2,
+    "eval_batch_size": 512
+  },
+  "model": {
+    "name": "cnn",
+    "num_classes": 10
+  },
+  "train": {
+    "epochs": 10,
+    "batch_size": 128,
+    "grad_accum_steps": 1,
+    "max_steps_per_epoch": null,
+    "stop_after_epoch": null
+  },
+  "optimizer": {
+    "name": "adam",
+    "lr": 0.001,
+    "momentum": 0.9,
+    "nesterov": false,
+    "weight_decay": 0.0
+  },
+  "scheduler": {
+    "name": "none",
+    "step_size": 3,
+    "gamma": 0.1,
+    "eta_min": 0.0,
+    "factor": 0.5,
+    "patience": 1
+  },
+  "checkpoint": {
+    "dir": "./checkpoints",
+    "resume": null,
+    "keep_every_epoch": false
+  },
+  "mlflow": {
+    "tracking_uri": "./mlruns",
+    "log_model_artifact": true
+  },
+  "tags": {}
+}
+device=cpu  params=20,490  size=0.08 MB  batch=128x1  epochs=10
+epoch   1/10 | loss 0.5347 acc 0.8106 | val_loss 0.3930 val_acc 0.8582 | lr 0.00100 | 4131 samples/s | 639 MB
+epoch   2/10 | loss 0.3433 acc 0.8769 | val_loss 0.3266 val_acc 0.8844 | lr 0.00100 | 4807 samples/s | 639 MB
+epoch   3/10 | loss 0.3029 acc 0.8919 | val_loss 0.3013 val_acc 0.8888 | lr 0.00100 | 5008 samples/s | 658 MB
+epoch   4/10 | loss 0.2794 acc 0.9005 | val_loss 0.2948 val_acc 0.8930 | lr 0.00100 | 4950 samples/s | 658 MB
+epoch   5/10 | loss 0.2619 acc 0.9064 | val_loss 0.2831 val_acc 0.8916 | lr 0.00100 | 4983 samples/s | 658 MB
+epoch   6/10 | loss 0.2457 acc 0.9122 | val_loss 0.2759 val_acc 0.9024 | lr 0.00100 | 4881 samples/s | 658 MB
+epoch   7/10 | loss 0.2343 acc 0.9157 | val_loss 0.2704 val_acc 0.8982 | lr 0.00100 | 4951 samples/s | 658 MB
+epoch   8/10 | loss 0.2251 acc 0.9188 | val_loss 0.2709 val_acc 0.9022 | lr 0.00100 | 4816 samples/s | 658 MB
+epoch   9/10 | loss 0.2137 acc 0.9235 | val_loss 0.2713 val_acc 0.9010 | lr 0.00100 | 5045 samples/s | 658 MB
+epoch  10/10 | loss 0.2061 acc 0.9256 | val_loss 0.2607 val_acc 0.9030 | lr 0.00100 | 4955 samples/s | 658 MB
+test_acc=0.9052  best_val_acc=0.9030  run_id=b548cd123517416190550d8768303913

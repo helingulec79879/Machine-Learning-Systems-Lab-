@@ -1,0 +1,33 @@
+
+===== resume: reference =====
+device=cpu  params=20,490  size=0.08 MB  batch=128x1  epochs=6
+epoch   1/6 | loss 0.5347 acc 0.8106 | val_loss 0.3930 val_acc 0.8582 | lr 0.00100 | 4184 samples/s | 633 MB
+epoch   2/6 | loss 0.3433 acc 0.8769 | val_loss 0.3266 val_acc 0.8844 | lr 0.00100 | 4960 samples/s | 656 MB
+epoch   3/6 | loss 0.3029 acc 0.8919 | val_loss 0.3013 val_acc 0.8888 | lr 0.00100 | 4892 samples/s | 637 MB
+epoch   4/6 | loss 0.2794 acc 0.9005 | val_loss 0.2948 val_acc 0.8930 | lr 0.00100 | 4862 samples/s | 631 MB
+epoch   5/6 | loss 0.2619 acc 0.9064 | val_loss 0.2831 val_acc 0.8916 | lr 0.00100 | 4992 samples/s | 631 MB
+epoch   6/6 | loss 0.2457 acc 0.9122 | val_loss 0.2759 val_acc 0.9024 | lr 0.00100 | 4958 samples/s | 631 MB
+test_acc=0.8970  best_val_acc=0.9024  run_id=7c2ab275c5fb4464a46e74830ed3ff35
+
+===== resume: interrupted =====
+device=cpu  params=20,490  size=0.08 MB  batch=128x1  epochs=6
+epoch   1/6 | loss 0.5347 acc 0.8106 | val_loss 0.3930 val_acc 0.8582 | lr 0.00100 | 5032 samples/s | 654 MB
+epoch   2/6 | loss 0.3433 acc 0.8769 | val_loss 0.3266 val_acc 0.8844 | lr 0.00100 | 4895 samples/s | 657 MB
+epoch   3/6 | loss 0.3029 acc 0.8919 | val_loss 0.3013 val_acc 0.8888 | lr 0.00100 | 5063 samples/s | 657 MB
+[interrupt] simulated interruption after epoch 3; resume with --set checkpoint.resume=auto
+
+===== resuming from checkpoint =====
+[resume] checkpoints/resume_interrupted/last.pt -> continuing at epoch 4 (MLflow run 0e6f3039ec6f4fc3a6ed08c1ff745034)
+device=cpu  params=20,490  size=0.08 MB  batch=128x1  epochs=6
+epoch   4/6 | loss 0.2794 acc 0.9005 | val_loss 0.2948 val_acc 0.8930 | lr 0.00100 | 5061 samples/s | 657 MB
+epoch   5/6 | loss 0.2619 acc 0.9064 | val_loss 0.2831 val_acc 0.8916 | lr 0.00100 | 5025 samples/s | 657 MB
+epoch   6/6 | loss 0.2457 acc 0.9122 | val_loss 0.2759 val_acc 0.9024 | lr 0.00100 | 4978 samples/s | 657 MB
+test_acc=0.8970  best_val_acc=0.9024  run_id=0e6f3039ec6f4fc3a6ed08c1ff745034
+| epoch | phase | ref_train_loss | resumed_train_loss | ref_val_acc | resumed_val_acc | ref_lr | resumed_lr |
+|---|---|---|---|---|---|---|---|
+| 1 | before | 0.5347 | 0.5347 | 0.8582 | 0.8582 | 0.0010 | 0.0010 |
+| 2 | before | 0.3433 | 0.3433 | 0.8844 | 0.8844 | 0.0010 | 0.0010 |
+| 3 | before | 0.3029 | 0.3029 | 0.8888 | 0.8888 | 0.0010 | 0.0010 |
+| 4 | after resume | 0.2794 | 0.2794 | 0.8930 | 0.8930 | 0.0010 | 0.0010 |
+| 5 | after resume | 0.2619 | 0.2619 | 0.8916 | 0.8916 | 0.0010 | 0.0010 |
+| 6 | after resume | 0.2457 | 0.2457 | 0.9024 | 0.9024 | 0.0010 | 0.0010 |

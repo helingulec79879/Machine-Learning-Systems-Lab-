@@ -1,0 +1,52 @@
+
+===== batch: bs32 =====
+device=cpu  params=20,490  size=0.08 MB  batch=32x1  epochs=5
+epoch   1/5 | loss 0.4353 acc 0.8444 | val_loss 0.3394 val_acc 0.8798 | lr 0.00100 | 3689 samples/s | 593 MB
+epoch   2/5 | loss 0.2972 acc 0.8930 | val_loss 0.2954 val_acc 0.8918 | lr 0.00100 | 3797 samples/s | 647 MB
+epoch   3/5 | loss 0.2604 acc 0.9061 | val_loss 0.2778 val_acc 0.8972 | lr 0.00100 | 3867 samples/s | 647 MB
+epoch   4/5 | loss 0.2347 acc 0.9153 | val_loss 0.2721 val_acc 0.9018 | lr 0.00100 | 3850 samples/s | 647 MB
+epoch   5/5 | loss 0.2171 acc 0.9207 | val_loss 0.2736 val_acc 0.8980 | lr 0.00100 | 3991 samples/s | 647 MB
+test_acc=0.9019  best_val_acc=0.9018  run_id=5f3c363e2de948c498b048d17ff6ac4e
+
+===== batch: bs64 =====
+device=cpu  params=20,490  size=0.08 MB  batch=64x1  epochs=5
+epoch   1/5 | loss 0.4747 acc 0.8322 | val_loss 0.3849 val_acc 0.8620 | lr 0.00100 | 4477 samples/s | 657 MB
+epoch   2/5 | loss 0.3172 acc 0.8876 | val_loss 0.3027 val_acc 0.8906 | lr 0.00100 | 4468 samples/s | 651 MB
+epoch   3/5 | loss 0.2793 acc 0.9002 | val_loss 0.2856 val_acc 0.8946 | lr 0.00100 | 4550 samples/s | 651 MB
+epoch   4/5 | loss 0.2544 acc 0.9086 | val_loss 0.2785 val_acc 0.8968 | lr 0.00100 | 4508 samples/s | 651 MB
+epoch   5/5 | loss 0.2364 acc 0.9143 | val_loss 0.2754 val_acc 0.8970 | lr 0.00100 | 4434 samples/s | 651 MB
+test_acc=0.9010  best_val_acc=0.8970  run_id=218e0660f4e94751bc0c94a5778c9cda
+
+===== batch: bs128 =====
+device=cpu  params=20,490  size=0.08 MB  batch=128x1  epochs=5
+epoch   1/5 | loss 0.5347 acc 0.8106 | val_loss 0.3930 val_acc 0.8582 | lr 0.00100 | 4997 samples/s | 667 MB
+epoch   2/5 | loss 0.3433 acc 0.8769 | val_loss 0.3266 val_acc 0.8844 | lr 0.00100 | 4988 samples/s | 669 MB
+epoch   3/5 | loss 0.3029 acc 0.8919 | val_loss 0.3013 val_acc 0.8888 | lr 0.00100 | 4889 samples/s | 669 MB
+epoch   4/5 | loss 0.2794 acc 0.9005 | val_loss 0.2948 val_acc 0.8930 | lr 0.00100 | 4974 samples/s | 669 MB
+epoch   5/5 | loss 0.2619 acc 0.9064 | val_loss 0.2831 val_acc 0.8916 | lr 0.00100 | 4856 samples/s | 669 MB
+test_acc=0.8883  best_val_acc=0.8930  run_id=41c292425e6444048883ed3ce9c729cc
+
+===== batch: bs256 =====
+device=cpu  params=20,490  size=0.08 MB  batch=256x1  epochs=5
+epoch   1/5 | loss 0.6217 acc 0.7852 | val_loss 0.4094 val_acc 0.8512 | lr 0.00100 | 3732 samples/s | 721 MB
+epoch   2/5 | loss 0.3725 acc 0.8672 | val_loss 0.3515 val_acc 0.8710 | lr 0.00100 | 3740 samples/s | 721 MB
+epoch   3/5 | loss 0.3273 acc 0.8834 | val_loss 0.3300 val_acc 0.8792 | lr 0.00100 | 3728 samples/s | 721 MB
+epoch   4/5 | loss 0.3026 acc 0.8925 | val_loss 0.3192 val_acc 0.8834 | lr 0.00100 | 3766 samples/s | 721 MB
+epoch   5/5 | loss 0.2854 acc 0.8988 | val_loss 0.3063 val_acc 0.8900 | lr 0.00100 | 3717 samples/s | 721 MB
+test_acc=0.8875  best_val_acc=0.8900  run_id=46b3d6111044441e97eb9e8d9c6b46d8
+
+===== batch: bs512 =====
+device=cpu  params=20,490  size=0.08 MB  batch=512x1  epochs=5
+epoch   1/5 | loss 0.7517 acc 0.7539 | val_loss 0.5034 val_acc 0.8098 | lr 0.00100 | 3571 samples/s | 760 MB
+epoch   2/5 | loss 0.4187 acc 0.8511 | val_loss 0.3953 val_acc 0.8558 | lr 0.00100 | 3749 samples/s | 809 MB
+epoch   3/5 | loss 0.3693 acc 0.8686 | val_loss 0.3708 val_acc 0.8682 | lr 0.00100 | 3754 samples/s | 809 MB
+epoch   4/5 | loss 0.3406 acc 0.8783 | val_loss 0.3430 val_acc 0.8776 | lr 0.00100 | 3737 samples/s | 796 MB
+epoch   5/5 | loss 0.3202 acc 0.8856 | val_loss 0.3311 val_acc 0.8800 | lr 0.00100 | 3710 samples/s | 796 MB
+test_acc=0.8813  best_val_acc=0.8800  run_id=fa74770b15d44c01b16bde2547872c44
+| batch_size | throughput_samples_per_s | peak_memory_mb | epoch_time_s | final_val_acc | test_acc | optimizer_steps_per_epoch |
+|---|---|---|---|---|---|---|
+| 32 | 3876.2 | 646.6 | 14.2 | 0.8980 | 0.9019 | 1718 |
+| 64 | 4489.9 | 657.0 | 12.2 | 0.8970 | 0.9010 | 859 |
+| 128 | 4926.5 | 669.0 | 11.1 | 0.8916 | 0.8883 | 429 |
+| 256 | 3737.8 | 721.1 | 14.7 | 0.8900 | 0.8875 | 214 |
+| 512 | 3737.4 | 808.8 | 14.7 | 0.8800 | 0.8813 | 107 |

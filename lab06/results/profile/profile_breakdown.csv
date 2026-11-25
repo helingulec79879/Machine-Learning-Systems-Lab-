@@ -1,0 +1,5 @@
+region,time_s,share_pct,profiler_time_s,profiler_share_pct
+data_loading,0.67,4.1,0.665,4.1
+forward,8.036,49.1,8.027,49.1
+backward,7.349,44.9,7.335,44.9
+optimizer_step,0.324,2.0,0.315,1.9

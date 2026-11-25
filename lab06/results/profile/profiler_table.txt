@@ -1,0 +1,35 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                forward         0.66%     108.075ms        49.12%        8.027s      18.712ms           429  
+                                               backward         0.83%     136.251ms        44.88%        7.335s      17.097ms           429  
+autograd::engine::evaluate_function: ConvolutionBack...         4.93%     805.884ms        31.59%        5.162s       6.017ms           858  
+                                   ConvolutionBackward0         0.03%       5.428ms        26.66%        4.357s       5.078ms           858  
+                             aten::convolution_backward        26.56%        4.341s        26.62%        4.351s       5.071ms           858  
+                                       aten::max_pool2d         0.06%       9.880ms        21.91%        3.581s       4.174ms           858  
+                          aten::max_pool2d_with_indices        21.89%        3.578s        21.89%        3.578s       4.170ms           858  
+                                           aten::conv2d         0.20%      33.332ms        19.19%        3.135s       3.654ms           858  
+                                      aten::convolution         0.09%      15.511ms        19.16%        3.131s       3.649ms           858  
+                                     aten::_convolution         0.06%      10.245ms        19.06%        3.115s       3.631ms           858  
+                               aten::mkldnn_convolution        18.93%        3.094s        19.00%        3.105s       3.619ms           858  
+                                             aten::relu         0.07%      10.947ms         6.45%        1.055s       1.229ms           858  
+                                        aten::clamp_min         6.39%        1.044s         6.39%        1.044s       1.217ms           858  
+autograd::engine::evaluate_function: MaxPool2DWithIn...         0.02%       2.843ms         6.27%        1.025s       1.195ms           858  
+                          MaxPool2DWithIndicesBackward0         0.05%       7.414ms         6.23%        1.018s       1.187ms           858  
+                 aten::max_pool2d_with_indices_backward         2.27%     371.383ms         6.21%        1.015s       1.183ms           858  
+     autograd::engine::evaluate_function: ReluBackward0         0.02%       3.857ms         5.04%     824.068ms     960.452us           858  
+                                          ReluBackward0         0.03%       4.843ms         5.02%     820.012ms     955.725us           858  
+                               aten::threshold_backward         4.99%     815.368ms         4.99%     815.368ms     950.312us           858  
+                                           data_loading         0.66%     108.407ms         4.07%     665.160ms       1.550ms           429  
+                                            aten::zero_         0.02%       2.502ms         3.93%     642.934ms     494.945us          1299  
+                                            aten::fill_         3.93%     642.614ms         3.93%     642.614ms     374.484us          1716  
+enumerate(DataLoader)#_MultiProcessingDataLoaderIter...         3.38%     551.780ms         3.41%     556.740ms       1.298ms           429  
+                                         optimizer_step         0.47%      76.238ms         1.93%     315.251ms     734.851us           429  
+                               Optimizer.step#Adam.step         0.78%     127.296ms         1.40%     229.504ms     534.974us           429  
+    autograd::engine::evaluate_function: AddmmBackward0         0.04%       6.394ms         0.81%     133.172ms     310.424us           429  
+                                         AddmmBackward0         0.04%       6.995ms         0.73%     119.283ms     278.049us           429  
+                                               aten::mm         0.65%     105.725ms         0.65%     105.725ms     123.223us           858  
+                                           aten::linear         0.02%       2.907ms         0.50%      81.022ms     188.862us           429  
+                                            aten::addmm         0.42%      69.160ms         0.45%      73.003ms     170.170us           429  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 16.342s

@@ -1,0 +1,33 @@
+
+===== accum: bs256_acc1 =====
+device=cpu  params=20,490  size=0.08 MB  batch=256x1  epochs=5
+epoch   1/5 | loss 0.6217 acc 0.7852 | val_loss 0.4094 val_acc 0.8512 | lr 0.00100 | 4112 samples/s | 694 MB
+epoch   2/5 | loss 0.3725 acc 0.8672 | val_loss 0.3515 val_acc 0.8710 | lr 0.00100 | 5251 samples/s | 689 MB
+epoch   3/5 | loss 0.3273 acc 0.8834 | val_loss 0.3300 val_acc 0.8792 | lr 0.00100 | 5130 samples/s | 689 MB
+epoch   4/5 | loss 0.3026 acc 0.8925 | val_loss 0.3192 val_acc 0.8834 | lr 0.00100 | 5147 samples/s | 701 MB
+epoch   5/5 | loss 0.2854 acc 0.8988 | val_loss 0.3063 val_acc 0.8900 | lr 0.00100 | 5124 samples/s | 701 MB
+test_acc=0.8875  best_val_acc=0.8900  run_id=b8ef4e9be2c2454e835fb15664ac7d89
+
+===== accum: bs64_acc4 =====
+device=cpu  params=20,490  size=0.08 MB  batch=64x4  epochs=5
+epoch   1/5 | loss 0.6211 acc 0.7854 | val_loss 0.4124 val_acc 0.8518 | lr 0.00100 | 4533 samples/s | 687 MB
+epoch   2/5 | loss 0.3724 acc 0.8665 | val_loss 0.3491 val_acc 0.8760 | lr 0.00100 | 4579 samples/s | 682 MB
+epoch   3/5 | loss 0.3268 acc 0.8831 | val_loss 0.3480 val_acc 0.8686 | lr 0.00100 | 4507 samples/s | 682 MB
+epoch   4/5 | loss 0.3030 acc 0.8922 | val_loss 0.3340 val_acc 0.8748 | lr 0.00100 | 4482 samples/s | 682 MB
+epoch   5/5 | loss 0.2852 acc 0.8986 | val_loss 0.3040 val_acc 0.8888 | lr 0.00100 | 4405 samples/s | 682 MB
+test_acc=0.8891  best_val_acc=0.8888  run_id=18270ae2a426422a973c36724a0fd535
+
+===== accum: bs64_acc1 =====
+device=cpu  params=20,490  size=0.08 MB  batch=64x1  epochs=5
+epoch   1/5 | loss 0.4747 acc 0.8322 | val_loss 0.3849 val_acc 0.8620 | lr 0.00100 | 4468 samples/s | 676 MB
+epoch   2/5 | loss 0.3172 acc 0.8876 | val_loss 0.3027 val_acc 0.8906 | lr 0.00100 | 4492 samples/s | 682 MB
+epoch   3/5 | loss 0.2793 acc 0.9002 | val_loss 0.2856 val_acc 0.8946 | lr 0.00100 | 4582 samples/s | 682 MB
+epoch   4/5 | loss 0.2544 acc 0.9086 | val_loss 0.2785 val_acc 0.8968 | lr 0.00100 | 4493 samples/s | 682 MB
+epoch   5/5 | loss 0.2364 acc 0.9143 | val_loss 0.2754 val_acc 0.8970 | lr 0.00100 | 4548 samples/s | 682 MB
+test_acc=0.9010  best_val_acc=0.8970  run_id=f4a44116cc0c437eb647a0696c011e55
+| run | effective_batch | optimizer_steps_per_epoch | final_train_loss | final_val_acc | test_acc | peak_memory_mb | throughput_samples_per_s |
+|---|---|---|---|---|---|---|---|
+| bs256_acc1 | 256 | 214 | 0.2854 | 0.8900 | 0.8875 | 701.2 | 4952.9 |
+| bs64_acc4 | 256 | 215 | 0.2852 | 0.8888 | 0.8891 | 687.3 | 4500.9 |
+| bs64_acc1 | 64 | 859 | 0.2364 | 0.8970 | 0.9010 | 681.6 | 4516.6 |
+max |val_acc(bs256) - val_acc(bs64x4)| over epochs = 0.0106
