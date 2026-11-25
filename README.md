@@ -6,3 +6,4 @@ Lab work for the Machine Learning Systems course following the course lab manual
 - Lab 3: Architectures and their costs
 - Lab 4: Data pipeline and quality
 - Lab 5: Scalar autograd engine
+- Lab 6: Training pipelines
